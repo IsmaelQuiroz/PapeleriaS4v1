@@ -5,12 +5,12 @@ import {
   List,
   ListItem,
   ListItemText,
-  Link,
   ListItemIcon,
 } from "@material-ui/core";
 import React from "react";
 import { useState } from "react";
 import useStyles from "../../../theme/useStyle";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const MenuMovil = (props) => {
   const defaultImage =
@@ -45,7 +45,7 @@ const MenuMovil = (props) => {
           <Icon>keyboard_arrow_down</Icon>
         </div>
       </ListItem>
-      <Collapse component="li" in={openCliente} timeout="auto" unmountExit>
+      <Collapse component="li" in={openCliente} timeout="auto" unmountOnExit>
         <List disablePadding>
           <ListItem button className={classes.listSubItem} onClick={props.clickHandler}>
             <Link className={classes.linkAppBarMobile} to="/perfil">
@@ -115,7 +115,7 @@ const MenuMovil = (props) => {
     <Collapse component="li" in={openTools} timeout="auto" unmountOnExit>
         <List disablePadding>
         <ListItem button className={classes.listSubItem} onClick={props.clickHandler}>
-            <Link className={classes.linkAppBarMobile} to="/findMonographs">
+            <Link className={classes.linkAppBarMobile} to="/findMonographs"> 
                 <ListItemIcon className={classes.ListItemIcon}>
                     <Icon>manage_search</Icon>
                 </ListItemIcon>

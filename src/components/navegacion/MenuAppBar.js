@@ -1,6 +1,7 @@
 import { AppBar, Container, Drawer, Icon, IconButton, Link, List, Toolbar, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import useStyles from '../../theme/useStyle';
+import MenuCliente from './desktop/MenuCliente';
 import MenuMovil from './movil/MenuMovil';
 
 const MenuAppBar = () => {
@@ -40,8 +41,8 @@ const MenuAppBar = () => {
                            </Link> 
                         </div>
                         <div className={classes.sectionDesktop}>
-                            Menu Cliente
-                            Menu Admin
+                            <MenuCliente/>
+                            {/*Menu Admin*/}
                         </div>
                     </Toolbar>
                 </Container>
