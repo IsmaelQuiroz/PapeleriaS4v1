@@ -1,10 +1,10 @@
 import { Button, Container, Grid, Icon, TableCell, TableContainer, TableHead, TableRow, Typography, Table, TableBody } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import React, { useState, useEffect } from 'react';
-import useStyles from '../../theme/useStyle';
+import useStyles from '../../../theme/useStyle';
 
 
-const FindMonographs = (props) => {
+const CategoriesList = (props) => {
   
         //Respuesta del server
         const [paginatedList, setListaPaginada] = useState({
@@ -26,7 +26,7 @@ const FindMonographs = (props) => {
     }
 
     const editItem = (id) => {
-        props.history.push("admin/editCategory"+id);
+        props.history.push("/admin/editCategory"+id);
     }
 
     //for page change
@@ -39,7 +39,7 @@ const FindMonographs = (props) => {
 
     //update list of categories
     useEffect( () => {
-
+        
     },[requestCategories]);
     
     const classes = useStyles();
@@ -47,7 +47,7 @@ const FindMonographs = (props) => {
         <Container className={classes.containermt}>
             <Grid container>
                 <Grid item lg={6} sm={6} xs={12}>
-                    <Typography variant="h4" className={classes.text_title}>Search Monographs</Typography>
+                    <Typography variant="h4" className={classes.text_title}>Categories</Typography>
                 </Grid>
                 <Grid item lg={6} sm={6} xs={12}>
                     <Button variant="contained"
@@ -55,7 +55,7 @@ const FindMonographs = (props) => {
                         className={classes.buttonAgregar}
                         onClick={addItem}>
                             <Icon>add</Icon>
-                            Add Monograph
+                            Add Category
                     </Button>
                 </Grid>
             </Grid>
@@ -63,22 +63,16 @@ const FindMonographs = (props) => {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Code</TableCell>
-                            <TableCell>Title Name</TableCell>
-                            <TableCell>Category</TableCell>
-                            <TableCell>Keyword</TableCell>
-                            <TableCell>Id</TableCell>
+                            <TableCell>ID</TableCell>
+                            <TableCell>Category Name</TableCell>
                             <TableCell>Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {paginatedList.data.map( (item) => (
                             <TableRow key={item.id}>
-                                <TableCell>{item.code}</TableCell>
-                                <TableCell>{item.name}</TableCell>
-                                <TableCell>{item.category}</TableCell>
-                                <TableCell>{item.Keyword}</TableCell>
                                 <TableCell>{item.id}</TableCell>
+                                <TableCell>{item.name}</TableCell>
                                 <TableCell>
                                     <Button
                                     variant="contained"
@@ -102,4 +96,4 @@ const FindMonographs = (props) => {
     )
 }
 
-export default FindMonographs;
+export default CategoriesList;

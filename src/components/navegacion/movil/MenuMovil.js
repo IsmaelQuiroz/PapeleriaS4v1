@@ -81,7 +81,7 @@ const MenuMovil = (props) => {
             </Link>
           </ListItem>
           <ListItem button className={classes.listSubItem} onClick={props.clickHandler}>
-            <Link className={classes.linkAppBarMobile} to="/admin/listaCategorias">
+            <Link className={classes.linkAppBarMobile} to="/admin/categories">
               <ListItemIcon className={classes.ListItemIcon}>
                 <Icon>scatter_plot</Icon>
               </ListItemIcon>

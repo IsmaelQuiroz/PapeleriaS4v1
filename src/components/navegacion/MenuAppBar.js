@@ -2,6 +2,7 @@ import { AppBar, Container, Drawer, Icon, IconButton, Link, List, Toolbar, Typog
 import React, { useState } from 'react';
 import useStyles from '../../theme/useStyle';
 import MenuCliente from './desktop/MenuCliente';
+import MenuAdmin from './desktop/MenuAdmin';
 import MenuMovil from './movil/MenuMovil';
 
 const MenuAppBar = () => {
@@ -42,7 +43,7 @@ const MenuAppBar = () => {
                         </div>
                         <div className={classes.sectionDesktop}>
                             <MenuCliente/>
-                            {/*Menu Admin*/}
+                            <MenuAdmin/>
                         </div>
                     </Toolbar>
                 </Container>
