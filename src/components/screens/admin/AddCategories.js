@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { registerCategory } from '../../../actions/CategoryActions';
 import useStyles from '../../../theme/useStyle';
 
-const AddCategories = () => {
+const AddCategories = (props) => {
     const[item, setItem] = useState({
         id: 0,
         name:''
@@ -17,7 +17,9 @@ const AddCategories = () => {
     }
 
     const saveItem = async () => {
-        const result = await registerCategory(item);
+        const response = await registerCategory(item);
+        console.log("item registrado", response.data);
+        props.history.push('/admin/categories');
     }   
 
     const cls = useStyles();

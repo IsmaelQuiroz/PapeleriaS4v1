@@ -1,46 +1,55 @@
 import { Button, Container, Grid, Icon, TableCell, TableContainer, TableHead, TableRow, Typography, Table, TableBody } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import React, { useState, useEffect } from 'react';
+import { getCategories } from '../../../actions/CategoryActions';
 import useStyles from '../../../theme/useStyle';
 
 
 const CategoriesList = (props) => {
   
         //Respuesta del server
-        const [paginatedList, setListaPaginada] = useState({
-            count: 0,
-            pageIndex: 0,
-            pageSize:0,
-            pageCount: 0,
-            data:[]
-        });
+        const [categoriesList, setCategoriesList] = useState([]);
 
-        const [requestCategories, setRequestCategories] = useState({
-            pageIndex : 1,
-            pageSize: 5,
-            search:''
-        });
+        // const [paginatedList, setListaPaginada] = useState({
+        //     count: 0,
+        //     pageIndex: 0,
+        //     pageSize:0,
+        //     pageCount: 0,
+        //     data:[]
+        // });
+
+        // const [requestCategories, setRequestCategories] = useState({
+        //     pageIndex : 1,
+        //     pageSize: 5,
+        //     search:''
+        // });
 
     const addItem =() => {
         props.history.push("/admin/addCategory");
     }
 
     const editItem = (id) => {
-        props.history.push("/admin/editCategory"+id);
+        props.history.push("/admin/category/"+id);
     }
 
     //for page change
-    const handleChange = (event, value) => {
-        setRequestCategories( (anterior) => ({
-            ...anterior,
-            pageIndex: value
-        }));
-    };
+    // const handleChange = (event, value) => {
+    //     setRequestCategories( (anterior) => ({
+    //         ...anterior,
+    //         pageIndex: value
+    //     }));
+    // };
 
     //update list of categories
     useEffect( () => {
-        
-    },[requestCategories]);
+       const getCategoriesList = async  () => {
+            const response = await getCategories();
+            setCategoriesList(response.data);
+       };
+       
+       getCategoriesList();
+       
+    },[categoriesList.length]);
     
     const classes = useStyles();
     return (
@@ -69,7 +78,8 @@ const CategoriesList = (props) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {paginatedList.data.map( (item) => (
+                        { console.log("datos", categoriesList)}   
+                        { categoriesList.map( (item) => (
                             <TableRow key={item.id}>
                                 <TableCell>{item.id}</TableCell>
                                 <TableCell>{item.name}</TableCell>
@@ -91,7 +101,7 @@ const CategoriesList = (props) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Pagination count={paginatedList.pageCount} page={paginatedList.pageIndex} onChange={handleChange}/>
+            {/* <Pagination count={paginatedList.pageCount} page={paginatedList.pageIndex} onChange={handleChange}/> */}
         </Container>
     )
 }
