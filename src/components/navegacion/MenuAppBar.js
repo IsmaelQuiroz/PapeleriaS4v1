@@ -1,4 +1,5 @@
-import { AppBar, Container, Drawer, Icon, IconButton, Link, List, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Container, Drawer, Icon, IconButton,  List, Toolbar, Typography } from '@material-ui/core';
+import { Link} from 'react-router-dom';
 import React, { useState } from 'react';
 import useStyles from '../../theme/useStyle';
 import MenuCliente from './desktop/MenuCliente';
@@ -36,7 +37,7 @@ const MenuAppBar = () => {
                         </Drawer>
 
                         <div className={classes.grow}>
-                           <Link to="/" color="inherit" className={classes.linkAppBarLogo} underline="none">
+                           <Link to="/findMonographs" color="inherit" className={classes.linkAppBarLogo} underline="none">
                                 <Icon className={classes.mr} fontSize="large">store</Icon>
                                 <Typography variant="h5">PapeleríaS4 SHOP</Typography>
                            </Link> 

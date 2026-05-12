@@ -1,8 +1,8 @@
-import { Container, Grid, TextField, Typography } from '@material-ui/core';
+import { Button, Container, Grid, TextField, Typography } from '@material-ui/core';
 import React from 'react'
 import { useEffect, useRef } from 'react';
 import { useState } from 'react';
-import { getCategoryById } from '../../../actions/CategoryActions';
+import { getCategoryById, updateCategories } from '../../../actions/CategoryActions';
 import useStyles from '../../../theme/useStyle';
 
 const EditCategory = (props) => {
@@ -23,6 +23,14 @@ const EditCategory = (props) => {
         getCategoryByIdAsync();
         inputReff.current.focus();
     },[])
+
+    const updateItem = async () => {
+        //console.log("id from state", category.id); --6
+        //const id = props.match.params.id; 
+        //console.log("id from url",id) --6
+        const response = await updateCategories(category, category.id);
+        props.history.push("/admin/categories/");
+    }
 
     const handleChange =(e) => {
         const { name, value } = e.target;
@@ -55,6 +63,11 @@ const EditCategory = (props) => {
                         onChange={handleChange}
                         inputRef={inputReff}
                     />
+                    <Button variant="contained"
+                    color="primary"
+                    onClick={updateItem} >
+                    UPDATE
+                    </Button>
                 </form>
                 </Grid>
             </Grid>

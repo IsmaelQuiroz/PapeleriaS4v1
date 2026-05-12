@@ -22,7 +22,7 @@ const FindMonographs = (props) => {
         });
 
     const addItem =() => {
-        props.history.push("/admin/addCategory");
+        props.history.push("/admin/addMonograph");
     }
 
     const editItem = (id) => {
@@ -59,6 +59,9 @@ const FindMonographs = (props) => {
                     </Button>
                 </Grid>
             </Grid>
+
+            {/**Agregar aqui control de busqueda de Monografias y su boton a la derecha */}
+
             <TableContainer>
                 <Table>
                     <TableHead>

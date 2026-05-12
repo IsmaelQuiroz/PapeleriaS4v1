@@ -6,9 +6,8 @@ import useStyles from '../../../theme/useStyle';
 const AddCategories = (props) => {
     const[item, setItem] = useState({
         id: 0,
-        name:''
-    });
-
+        name: ""
+    })
     const handleChange = (e) => {
         const {name, value} = e.target;
         setItem({

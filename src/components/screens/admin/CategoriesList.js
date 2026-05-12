@@ -1,7 +1,7 @@
 import { Button, Container, Grid, Icon, TableCell, TableContainer, TableHead, TableRow, Typography, Table, TableBody } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import React, { useState, useEffect } from 'react';
-import { getCategories } from '../../../actions/CategoryActions';
+import { deleteCategory, getCategories } from '../../../actions/CategoryActions';
 import useStyles from '../../../theme/useStyle';
 
 
@@ -30,6 +30,14 @@ const CategoriesList = (props) => {
 
     const editItem = (id) => {
         props.history.push("/admin/category/"+id);
+    }
+
+    const deleteItem = async (id) => {
+        const response = await deleteCategory(id);
+        if(response.data){
+            const categoriesListRefresh = await getCategories();
+            setCategoriesList(categoriesListRefresh.data);
+        }
     }
 
     //for page change
@@ -92,7 +100,8 @@ const CategoriesList = (props) => {
                                     </Button>
                                     <Button
                                     variant="contained"
-                                    color="secondary">
+                                    color="secondary"
+                                    onClick={ () => deleteItem(item.id)}>
                                           <Icon>delete</Icon>  
                                     </Button>
                                 </TableCell>

@@ -49,3 +49,15 @@ export const updateCategories = (item, id) => {
     });
 }
 
+export const deleteCategory = (id) => {
+    return new Promise( (resolve,eject) => {
+        HttpClient.delete(`/api/category/${id}`)
+        .then(response => {
+            resolve(response)
+        })
+        .catch( error => {
+            resolve(error.response)
+        })
+    })
+}
+
