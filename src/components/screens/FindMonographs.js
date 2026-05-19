@@ -1,24 +1,25 @@
 import { Button, Container, Grid, Icon, TableCell, TableContainer, TableHead, TableRow, Typography, Table, TableBody } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import React, { useState, useEffect } from 'react';
+import { getMonographsListAction } from '../../actions/MonographActions';
 import useStyles from '../../theme/useStyle';
 
 
 const FindMonographs = (props) => {
   
         //Respuesta del server
-        const [paginatedList, setListaPaginada] = useState({
+        const [paginationList, setPaginationList] = useState({
             count: 0,
             pageIndex: 0,
             pageSize:0,
-            pageCount: 0,
-            data:[]
+            data:[],
+            pageCount: 0
         });
 
-        const [requestCategories, setRequestCategories] = useState({
+        const [requestPagination, setRequestPagination] = useState({
             pageIndex : 1,
             pageSize: 5,
-            search:''
+            search: '',
         });
 
     const addItem =() => {
@@ -31,16 +32,23 @@ const FindMonographs = (props) => {
 
     //for page change
     const handleChange = (event, value) => {
-        setRequestCategories( (anterior) => ({
+        setRequestPagination( (anterior) => ({
             ...anterior,
             pageIndex: value
         }));
+        console.log("requestPagination:", requestPagination);
     };
 
     //update list of categories
     useEffect( () => {
-
-    },[requestCategories]);
+        const fnPaginationResponse = async () => {
+            const response = await getMonographsListAction(requestPagination);
+            console.log("monografias", response.data);
+            setPaginationList(response.data);
+        };
+        
+        fnPaginationResponse();
+    },[requestPagination]);
     
     const classes = useStyles();
     return (
@@ -75,12 +83,12 @@ const FindMonographs = (props) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {paginatedList.data.map( (item) => (
+                        {paginationList.data.map( (item) => (
                             <TableRow key={item.id}>
                                 <TableCell>{item.code}</TableCell>
-                                <TableCell>{item.name}</TableCell>
-                                <TableCell>{item.category}</TableCell>
-                                <TableCell>{item.Keyword}</TableCell>
+                                <TableCell>{item.title}</TableCell>
+                                <TableCell>{item.categoryName}</TableCell>
+                                <TableCell>{item.keyword}</TableCell>
                                 <TableCell>{item.id}</TableCell>
                                 <TableCell>
                                     <Button
@@ -100,7 +108,7 @@ const FindMonographs = (props) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Pagination count={paginatedList.pageCount} page={paginatedList.pageIndex} onChange={handleChange}/>
+            <Pagination count={paginationList.pageCount} page={paginationList.pageIndex} onChange={handleChange}/>
         </Container>
     )
 }

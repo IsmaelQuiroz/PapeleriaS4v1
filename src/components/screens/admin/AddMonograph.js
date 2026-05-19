@@ -3,19 +3,19 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { getCategories } from '../../../actions/CategoryActions';
-import { registerMonograph } from '../../../actions/MonographActions';
+import { registerMonographAction } from '../../../actions/MonographActions';
 import useStyles from '../../../theme/useStyle';
  
-const AddMonograph = () => {
+const AddMonograph = (props) => {
 
-    const[item, setItem] = useState({
+    const[monograph, setItem] = useState({
         id: 0,
         title:'',
         code : 0,
         stock: 0,
         keyword : "",
-        productId: 0,
-        productName :"",
+        productId: 1,
+        productName :"Planillas o Monografías",
         categoryId: 0
     });
 
@@ -41,19 +41,21 @@ const AddMonograph = () => {
         setCategoryIdSelected(event.target.value);   
     }
 
-        //Monographs Data
-        const handleChange = (e) => {
-            const {name, value} = e.target;
-            setItem({
-                [name] : value
-            });
-        }
+    //Monographs Data
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+        setItem( prev => ({
+        ...prev,
+         [name] : value
+        }));
+    }
 
         const saveMonograph = async () => {
-            item.categoryId = categoryIdSelected;
-            const resultado = await registerMonograph(item);
-
+            monograph.categoryId = categoryIdSelected;
+            console.log("var status", monograph);
+            const resultado = await registerMonographAction(monograph);
             console.log('respuesta de AddProduct',resultado);
+            props.history.push("/findMonographs");
         }
 
 
@@ -75,7 +77,7 @@ const AddMonograph = () => {
                     InputLabelProps={
                         {shrink: true}
                     }
-                    value={item.title}
+                    value={monograph.title}
                     onChange={handleChange}
                    />
 
@@ -84,7 +86,7 @@ const AddMonograph = () => {
                    label="Code"
                    variant="outlined"
                    onChange={handleChange}
-                   value={item.code}
+                   value={monograph.code}
                    fullWidth
                    className={cls.gridmb}
                    InputLabelProps={
@@ -119,7 +121,7 @@ const AddMonograph = () => {
                     label="Keyword"
                     name="keyword"
                     onChange={handleChange}
-                    value={item.keyword}
+                    value={monograph.keyword}
                     fullWidth
                     className={cls.gridmb}
                     variant="outlined"
@@ -128,10 +130,24 @@ const AddMonograph = () => {
                     }
                     />
 
+                    <TextField 
+                    label="Stock"
+                    name="stock"
+                    value={monograph.stock}
+                    onChange={handleChange}
+                    fullWidth
+                    variant='outlined'
+                    InputLabelProps={
+                        {shrink : true}
+                    }
+                    className={cls.gridmb}
+                    
+                    />
+
                     <TextField
                     label="Producto Asociado"
                     name="productName"
-                    value={item.productName}
+                    value={monograph.productName}
                     fullWidth
                     onChange={handleChange}
                     disabled

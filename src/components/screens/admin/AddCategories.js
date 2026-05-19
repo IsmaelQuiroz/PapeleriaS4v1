@@ -4,19 +4,19 @@ import { registerCategory } from '../../../actions/CategoryActions';
 import useStyles from '../../../theme/useStyle';
 
 const AddCategories = (props) => {
-    const[item, setItem] = useState({
+    const[category, setCategory] = useState({
         id: 0,
         name: ""
     })
     const handleChange = (e) => {
         const {name, value} = e.target;
-        setItem({
+        setCategory({
             name : value
         })
     }
 
     const saveItem = async () => {
-        const response = await registerCategory(item);
+        const response = await registerCategory(category);
         console.log("item registrado", response.data);
         props.history.push('/admin/categories');
     }   
@@ -41,7 +41,7 @@ const AddCategories = (props) => {
                                 }
                             }
                             name="name"
-                            value={item.name}
+                            value={category.name}
                             onChange={handleChange}
                         />
 
