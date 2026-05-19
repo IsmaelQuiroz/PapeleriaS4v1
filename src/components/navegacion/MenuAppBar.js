@@ -1,0 +1,56 @@
+import { AppBar, Container, Drawer, Icon, IconButton,  List, Toolbar, Typography } from '@material-ui/core';
+import { Link} from 'react-router-dom';
+import React, { useState } from 'react';
+import useStyles from '../../theme/useStyle';
+import MenuCliente from './desktop/MenuCliente';
+import MenuAdmin from './desktop/MenuAdmin';
+import MenuMovil from './movil/MenuMovil';
+
+const MenuAppBar = () => {
+    const classes = useStyles();
+
+    const [open, setOpen] = useState(false);
+    const openToggle = () => {
+        setOpen(true);
+    }
+    const closeToggle = () => {
+        setOpen(false);
+    }
+
+    return(
+        <div>
+            <AppBar position="static" className={classes.appBar}>
+                <Container>
+                    <Toolbar>
+                        <div className={classes.sectionMobile}>
+                            <IconButton color='inherit' onClick={openToggle}>
+                                <Icon fontSize='large'>menu</Icon>
+                            </IconButton>
+                        </div>
+                        {/*aqui va el Drawer*/}
+                        <Drawer open={open} onClose={closeToggle}>
+                            <div className={classes.list}>
+                                <List>
+                                    <MenuMovil clickHandler={closeToggle}/>
+                                </List>
+                            </div>
+                        </Drawer>
+
+                        <div className={classes.grow}>
+                           <Link to="/findMonographs" color="inherit" className={classes.linkAppBarLogo} underline="none">
+                                <Icon className={classes.mr} fontSize="large">store</Icon>
+                                <Typography variant="h5">PapeleríaS4 SHOP</Typography>
+                           </Link> 
+                        </div>
+                        <div className={classes.sectionDesktop}>
+                            <MenuCliente/>
+                            <MenuAdmin/>
+                        </div>
+                    </Toolbar>
+                </Container>
+            </AppBar>
+        </div>
+    )
+}
+
+export default MenuAppBar;
