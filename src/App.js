@@ -8,6 +8,7 @@ import AddCategories from './components/screens/admin/AddCategories';
 import CategoriesList from './components/screens/admin/CategoriesList';
 import EditCategory from './components/screens/admin/EditCategory';
 import AddMonograph from './components/screens/admin/AddMonograph';
+import EditMonograph from './components/screens/admin/EditMonograph';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route exact path="/admin/categories" component={CategoriesList} />
             <Route exact path="/admin/category/:id" component={EditCategory}/>
             <Route exact path="/admin/addMonograph" component={AddMonograph}/>
+            <Route exact path="/admin/editMonograph/:id" component={EditMonograph}/>
           </Switch>
         </Router>
 

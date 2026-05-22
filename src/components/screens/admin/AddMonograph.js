@@ -58,6 +58,9 @@ const AddMonograph = (props) => {
             props.history.push("/findMonographs");
         }
 
+        const cancelAction = () => {
+            props.history.push("/findMonographs");
+        }
 
     const cls = useStyles();
 
@@ -65,7 +68,7 @@ const AddMonograph = (props) => {
         <Container className={cls.containermt}>
             <Grid container justify="center">
                 <Grid item sm={6} xs={12}>
-                    <Typography variant="h4" className={cls.text_title}>Add Monographs</Typography>
+                    <Typography variant="h4" className={cls.text_title}>Add Monograph</Typography>
              
                 <form onSubmit={ (e) => e.preventDefault()} className={cls.form}>
                     <TextField 
@@ -152,11 +155,15 @@ const AddMonograph = (props) => {
                     onChange={handleChange}
                     disabled
                     variant="filled"
-                    classes={cls.gridmb}
+                    className={cls.gridmb}
                     />
 
-                    <Button variant="contained" color="primary" onClick={saveMonograph} spacing>
+                    <Button variant="contained" color="primary" onClick={saveMonograph} spacing className={cls.buttonAnterior}>
                         SAVE
+                    </Button>
+
+                    <Button variant="contained" color="secundary" onClick={cancelAction}>
+                        CANCEL
                     </Button>
 
                 </form>

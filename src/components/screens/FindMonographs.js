@@ -1,7 +1,7 @@
 import { Button, Container, Grid, Icon, TableCell, TableContainer, TableHead, TableRow, Typography, Table, TableBody } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import React, { useState, useEffect } from 'react';
-import { getMonographsListAction } from '../../actions/MonographActions';
+import { deleteMonographAction, getMonographsListAction } from '../../actions/MonographActions';
 import useStyles from '../../theme/useStyle';
 
 
@@ -27,7 +27,7 @@ const FindMonographs = (props) => {
     }
 
     const editItem = (id) => {
-        props.history.push("admin/editCategory"+id);
+        props.history.push("admin/editMonograph/"+id);
     }
 
     //for page change
@@ -38,6 +38,14 @@ const FindMonographs = (props) => {
         }));
         console.log("requestPagination:", requestPagination);
     };
+
+    const deleteItem = async (id) => {
+        const response = await deleteMonographAction(id);
+        if(response.data){
+            const fnPaginationResponseRefresh = await getMonographsListAction(requestPagination);
+            setPaginationList(fnPaginationResponseRefresh.data);
+        }
+    }
 
     //update list of categories
     useEffect( () => {
@@ -99,7 +107,8 @@ const FindMonographs = (props) => {
                                     </Button>
                                     <Button
                                     variant="contained"
-                                    color="secondary">
+                                    color="secondary"
+                                    onClick= { () => deleteItem(item.id)}>
                                           <Icon>delete</Icon>  
                                     </Button>
                                 </TableCell>
