@@ -40,6 +40,10 @@ const EditCategory = (props) => {
         }));
     }
 
+    const cancelAction = () => {
+        props.history.push("/admin/categories");
+    }
+
     const cls = useStyles();
     return (
         <Container className={cls.containermt}>
@@ -65,9 +69,16 @@ const EditCategory = (props) => {
                     />
                     <Button variant="contained"
                     color="primary"
-                    onClick={updateItem} >
+                    onClick={updateItem} 
+                    className={cls.buttonAnterior}>
                     UPDATE
                     </Button>
+                    <Button variant="contained"
+                    color="secondary"
+                    onClick={cancelAction}>
+                        CANCEL
+                    </Button>
+
                 </form>
                 </Grid>
             </Grid>
