@@ -6,6 +6,10 @@ const useStyles = makeStyles({
     containermt:{
         marginTop: 30
     },
+    containerFilters: {
+        marginTop:15,
+        marginBottom:15
+    },
     card:{
         padding: 30
     },
@@ -126,6 +130,15 @@ const useStyles = makeStyles({
         color: "#494949",
         marginBottom: 5
     },
+    inputSearch: {
+        marginRight:2,
+        textAlign: "left"
+    },
+    text_search: {
+        fontWeight: 500,
+        color: "#494949",
+        marginLeft: 20
+    },
     imgProductoCC : {
         backgroundColor: "#F2F2F2",
         width: 80,
@@ -140,6 +153,9 @@ const useStyles = makeStyles({
     },
     buttonAnterior : {
         marginRight : 8
+    },
+    buttonSearch : {
+       
     },
     formControl: {
         /*margin: 12*/
