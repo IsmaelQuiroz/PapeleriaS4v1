@@ -4,9 +4,12 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { getCategories } from '../../../actions/CategoryActions';
 import { getMonographByIdAction, updateMonographAction } from '../../../actions/MonographActions';
+import { useStatateValueMy } from '../../../contexto/mystore';
 import useStyles from '../../../theme/useStyle';
 
 const EditMonograph = (props) => {
+    const [{ openSnackBarFromMain },dispatch] = useStatateValueMy();
+
     const [item, setItem] = useState({
         id: 0,
         title:'',
@@ -62,7 +65,19 @@ const EditMonograph = (props) => {
         //const id = props.match.params.id;
         item.categoryId = categoryIdSelected;
         const response = await updateMonographAction(item,item.id);
-        props.history.push("/findMonographs");
+        if(response.status === 200){
+            props.history.push("/findMonographs");
+        }else{
+            //console.log(response.data.errors.model[0]);
+            dispatch({
+                type: "OPEN_SNACKBAR",
+                openMensaje: {
+                    open: true,
+                    mensaje: response?.data?.errors?.monograph?.[0] || response?.data?.errors?.title,
+                    error: true
+                }
+            });
+        }
     }
 
     const cancelAction = () => {

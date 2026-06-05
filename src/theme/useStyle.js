@@ -232,6 +232,14 @@ const useStyles = makeStyles({
         width: 175,
         height: 175,
         backgroundColor: "#F2F2F2"
+    },
+    snackBarError: {
+        backgroundColor: '#CF0404', // Color Rojo personalizado
+        color: '#ffffff', // Texto blanco
+    },
+    snackBarInfo: {
+        backgroundColor: '#007199', // Color azul personalizado
+        color: '#ffffff', // Texto blanco
     }
 
 })

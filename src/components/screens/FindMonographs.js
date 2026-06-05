@@ -2,10 +2,9 @@ import { Button, Container, Grid, Icon, TableCell, TableContainer, TableHead, Ta
 import { Pagination } from '@material-ui/lab';
 import React, { useState, useEffect, useRef } from 'react';
 import { deleteMonographAction, getMonographsListAction } from '../../actions/MonographActions';
-// import useStyles from '../../theme/useStyle';
-// import ClearIcon  from '@material-ui/icons';
-
-
+import useStyles from '../../theme/useStyle';
+import { Clear as ClearIcon, Event}  from '@material-ui/icons';
+//import { Search as SearchIcon}  from '@material-ui/icons';
 
 
 const FindMonographs = (props) => {
@@ -13,8 +12,8 @@ const FindMonographs = (props) => {
         
         //Icon on TextField
         const [filterValue, setFilterValue] = useState('');
-        const handleClear = () => {
-            setFilterValue('');
+        const handleClear = (event) => {
+               setFilterValue('');         
         }
 
         //Respuesta del server
@@ -59,7 +58,7 @@ const FindMonographs = (props) => {
         }
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event) => {       
         event.preventDefault();
         //let criterioBusqueda =  document.getElementById('txtToSearch').value;
         let criterioBusqueda = textFieldRef.current.value;
@@ -125,14 +124,14 @@ const FindMonographs = (props) => {
                     value={filterValue}
                     onChange={(e) => setFilterValue(e.target.value)}
                     InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                   <SearchIcon/> 
-                            </InputAdornment>
-                        ),
+                        // startAdornment: (
+                        //     <InputAdornment position="start">
+                        //            <SearchIcon/> 
+                        //     </InputAdornment>
+                        // ),
                         endAdornment: filterValue && (
                             <InputAdornment position="end">
-                                <IconButton onClick={handleClear} size="small">
+                                <IconButton type="submit" onClick={handleClear} size="small">
                                     <ClearIcon/>
                                 </IconButton>
                             </InputAdornment>
