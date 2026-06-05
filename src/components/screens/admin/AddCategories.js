@@ -1,9 +1,12 @@
 import { Button, Container, Grid, TextField, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { registerCategory } from '../../../actions/CategoryActions';
+import { useStatateValueMy } from '../../../contexto/mystore';
 import useStyles from '../../../theme/useStyle';
 
 const AddCategories = (props) => {
+    const [{openSnackBarFromMain},dispatch] = useStatateValueMy();
+
     const[category, setCategory] = useState({
         id: 0,
         name: ""
@@ -16,9 +19,33 @@ const AddCategories = (props) => {
     }
 
     const saveItem = async () => {
+        if(category.name.length == 0){
+            dispatch({
+                type:"OPEN_SNACKBAR",
+                openMensaje: {
+                    open: true,
+                    mensaje: "Name of Category cannot be Blank",
+                    error: true
+                } 
+            });
+            return;
+        }
+
         const response = await registerCategory(category);
-        console.log("item registrado", response.data);
-        props.history.push('/admin/categories');
+        if(response.status === 200){
+            console.log("item registrado", response.data);
+            props.history.push('/admin/categories');
+        }else{
+            dispatch({
+                type:"OPEN_SNACKBAR",
+                openMensaje: {
+                    open: true,
+                    mensaje: response?.data?.title,
+                    error: true
+                } 
+            });
+        }
+
     }   
 
     const cls = useStyles();

@@ -4,9 +4,11 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { getCategories } from '../../../actions/CategoryActions';
 import { registerMonographAction } from '../../../actions/MonographActions';
+import { useStatateValueMy } from '../../../contexto/mystore';
 import useStyles from '../../../theme/useStyle';
  
 const AddMonograph = (props) => {
+    const [{openSnackBarFromMain},dispatch] = useStatateValueMy()
 
     const[monograph, setItem] = useState({
         id: 0,
@@ -50,17 +52,43 @@ const AddMonograph = (props) => {
         }));
     }
 
-        const saveMonograph = async () => {
-            monograph.categoryId = categoryIdSelected;
-            console.log("var status", monograph);
-            const resultado = await registerMonographAction(monograph);
-            console.log('respuesta de AddProduct',resultado);
-            props.history.push("/findMonographs");
+    const saveMonograph = async () => {
+        monograph.categoryId = categoryIdSelected;
+
+        if(monograph.title.length ==0){
+            dispatch({
+                type: "OPEN_SNACKBAR",
+                openMensaje: {
+                    open: true,
+                    mensaje: "Title must Not be Blank",
+                    error: true
+                }
+            });
+            return;
         }
 
-        const cancelAction = () => {
+        //console.log("var status", monograph);
+        const response = await registerMonographAction(monograph);
+        console.log('respuesta de AddMonograph',response);
+        if(response.status===200){
             props.history.push("/findMonographs");
         }
+        else{
+            dispatch({
+                type: "OPEN_SNACKBAR",
+                openMensaje: {
+                    open: true,
+                    mensaje: response?.data?.title,
+                    error: true
+                }
+            });
+        }
+        
+    }
+
+    const cancelAction = () => {
+        props.history.push("/findMonographs");
+    }
 
     const cls = useStyles();
 

@@ -64,6 +64,19 @@ const EditMonograph = (props) => {
     const updateItem = async () => {
         //const id = props.match.params.id;
         item.categoryId = categoryIdSelected;
+
+        if(item.title.length == 0){
+            dispatch({
+                type:"OPEN_SNACKBAR",
+                openMensaje: {
+                    open: true,
+                    mensaje:"Title must Not be Blank",
+                    error: true
+                }
+            })
+            return;
+        }
+
         const response = await updateMonographAction(item,item.id);
         if(response.status === 200){
             props.history.push("/findMonographs");
@@ -73,7 +86,7 @@ const EditMonograph = (props) => {
                 type: "OPEN_SNACKBAR",
                 openMensaje: {
                     open: true,
-                    mensaje: response?.data?.errors?.monograph?.[0] || response?.data?.errors?.title,
+                    mensaje: response?.data?.errors?.monograph?.[0] || response?.data?.title,
                     error: true
                 }
             });

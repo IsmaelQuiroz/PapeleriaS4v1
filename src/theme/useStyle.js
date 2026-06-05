@@ -1,4 +1,5 @@
 import { createTheme, makeStyles } from "@material-ui/core";
+import { WrapText } from "@material-ui/icons";
 
 const theme = createTheme();
 
@@ -240,8 +241,21 @@ const useStyles = makeStyles({
     snackBarInfo: {
         backgroundColor: '#007199', // Color azul personalizado
         color: '#ffffff', // Texto blanco
-    }
+    },
+    iconTableCell: {
+        display: "flex",
+        flexDirection  : "row",
+        flexWrap:"nowrap",
+        justifyContent: "center" //centrado horizontal
+        //,alignContent: "space-around"
+        ,margin: theme.spacing(1) //espaciado vertical
+    },
+    iconTableBox: {
+        marginLeft: "2px",
+        marginRight: "2px"
 
+    }
+   
 })
 
 export default useStyles;

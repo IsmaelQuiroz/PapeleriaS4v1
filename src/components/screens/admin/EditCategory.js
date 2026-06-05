@@ -3,9 +3,12 @@ import React from 'react'
 import { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { getCategoryById, updateCategories } from '../../../actions/CategoryActions';
+import { useStatateValueMy } from '../../../contexto/mystore';
 import useStyles from '../../../theme/useStyle';
 
 const EditCategory = (props) => {
+    const [{ openSnackBarFromMain }, dispatch] = useStatateValueMy();
+
     const inputReff = useRef(null);
     const [category, setCategory] = useState({
         id: 0,
@@ -28,8 +31,33 @@ const EditCategory = (props) => {
         //console.log("id from state", category.id); --6
         //const id = props.match.params.id; 
         //console.log("id from url",id) --6
+
+        if(category.name.length == 0){
+            dispatch({
+                type: "OPEN_SNACKBAR",
+                openMensaje: {
+                    open:true,
+                    mensaje:"Name of Category must Not be Blank",
+                    error: true
+                }
+            });
+            return;
+        }
+
         const response = await updateCategories(category, category.id);
-        props.history.push("/admin/categories/");
+        if(response.status === 200){
+            props.history.push("/admin/categories/");
+        }else{
+            dispatch({
+               type:"OPEN_SNACKBAR",
+               openMensaje : {
+                 open:true,
+                 mensaje: response?.data?.title,
+                 error: true 
+               }     
+            });
+        }
+       
     }
 
     const handleChange =(e) => {
