@@ -1,15 +1,30 @@
-import { Button, Container, Grid, Icon, TableCell, TableContainer, TableHead, TableRow, Typography, Table, TableBody, TextField, Box, InputAdornment, IconButton  } from '@material-ui/core';
+import { Button, Container, Grid, Icon, TableCell, TableContainer, TableHead, TableRow, Typography, Table, TableBody, TextField, Box, InputAdornment, IconButton, DialogContentText,DialogContent,DialogActions,Dialog,DialogTitle  } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import React, { useState, useEffect, useRef } from 'react';
 import { deleteMonographAction, getMonographsListAction } from '../../actions/MonographActions';
 import useStyles from '../../theme/useStyle';
-import { Clear as ClearIcon, Event}  from '@material-ui/icons';
+import { Clear as ClearIcon}  from '@material-ui/icons';
 //import { Search as SearchIcon}  from '@material-ui/icons';
 
 
 const FindMonographs = (props) => {
+        const [open, setOpen] = useState(false);
         const textFieldRef = useRef(null);
-        
+        const [idToDelete, setIdToDelete] = useState(0);
+
+        const handleClickOpen = (id) => {
+            setIdToDelete(id);
+            setOpen(true);
+        }
+        const handleClose = () => {
+            setIdToDelete(0);
+            setOpen(false);
+        }
+        const handleDelete = () => {
+            deleteItem(idToDelete);
+            setOpen(false);
+        }
+
         //Icon on TextField
         const [filterValue, setFilterValue] = useState('');
         const handleClear = (event) => {
@@ -91,7 +106,33 @@ const FindMonographs = (props) => {
     
     const classes = useStyles();
     return (
-        <Container className={classes.containermt}>
+         <Container className={classes.containermt}>
+
+        {/* <Button variant="outlined" onClick={handleClickOpen}>
+            Open alert Dialog
+         </Button> */}
+        <Dialog open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                role="alertdialog">
+            <DialogTitle id="alert-dialog-title">
+                    {"Confirm Deletion"}
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    Are you sure to Delete this Monograph?, One time to deleted, It will can't revocery
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button color="primary" onClick={handleClose} autoFocus >
+                    Cancel
+                </Button>
+                <Button color="secondary" onClick={handleDelete}>
+                    Confirm Elimination
+                </Button>
+            </DialogActions>
+        </Dialog>
 
             <Grid container>
                 <Grid item lg={6} sm={6} xs={12}>
@@ -172,17 +213,18 @@ const FindMonographs = (props) => {
                                 <TableCell>{item.categoryName}</TableCell>
                                 <TableCell>{item.keyword}</TableCell>
                                 <TableCell>{item.id}</TableCell>
-                                <TableCell>
-                                    <Button
+                                <TableCell class={classes.iconTableCell} >
+                                    <Button className={classes.iconTableBox}
                                     variant="contained"
                                     color="primary"
                                     onClick={ () => editItem(item.id)}>
                                             <Icon>edit</Icon>
                                     </Button>
-                                    <Button
+
+                                    <Button  className={classes.iconTableBox}
                                     variant="contained"
                                     color="secondary"
-                                    onClick= { () => deleteItem(item.id)}>
+                                    onClick= { () => handleClickOpen(item.id) }>
                                           <Icon>delete</Icon>  
                                     </Button>
                                 </TableCell>

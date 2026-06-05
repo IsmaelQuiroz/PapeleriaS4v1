@@ -1,4 +1,4 @@
-import { Button, Container, Grid, Icon, TableCell, TableContainer, TableHead, TableRow, Typography, Table, TableBody } from '@material-ui/core';
+import { Button, Container, Grid, Icon, TableCell, TableContainer, TableHead, TableRow, Typography, Table, TableBody, Dialog, DialogTitle, DialogContent,DialogContentText,DialogActions } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import React, { useState, useEffect } from 'react';
 import { deleteCategory, getCategories } from '../../../actions/CategoryActions';
@@ -6,23 +6,39 @@ import useStyles from '../../../theme/useStyle';
 
 
 const CategoriesList = (props) => {
-  
-        //Respuesta del server
-        const [categoriesList, setCategoriesList] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [idToDelete, setIdToDelete] = useState(0);
+    //Respuesta del server
+    const [categoriesList, setCategoriesList] = useState([]);
 
-        // const [paginatedList, setListaPaginada] = useState({
-        //     count: 0,
-        //     pageIndex: 0,
-        //     pageSize:0,
-        //     pageCount: 0,
-        //     data:[]
-        // });
+    // const [paginatedList, setListaPaginada] = useState({
+    //     count: 0,
+    //     pageIndex: 0,
+    //     pageSize:0,
+    //     pageCount: 0,
+    //     data:[]
+    // });
 
-        // const [requestCategories, setRequestCategories] = useState({
-        //     pageIndex : 1,
-        //     pageSize: 5,
-        //     search:''
-        // });
+    // const [requestCategories, setRequestCategories] = useState({
+    //     pageIndex : 1,
+    //     pageSize: 5,
+    //     search:''
+    // });
+
+    const handleClickOpen = (id) => {
+        setIdToDelete(id);
+        setOpen(true);
+    }
+
+    const handleClose = () => {
+        setIdToDelete(0);
+        setOpen(false);
+    }
+
+    const handleDelete = () => {
+        deleteItem(idToDelete);
+        setOpen(false);
+    }
 
     const addItem =() => {
         props.history.push("/admin/addCategory");
@@ -62,6 +78,31 @@ const CategoriesList = (props) => {
     const classes = useStyles();
     return (
         <Container className={classes.containermt}>
+
+    <Dialog open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                role="alertdialog">
+            <DialogTitle id="alert-dialog-title">
+                    {"Confirm Deletion"}
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    Monographs related to this category, it will be automatically updated to "General" category
+                    Are you sure to Delete this Category? 
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button color="primary" onClick={handleClose} autoFocus >
+                    Cancel
+                </Button>
+                <Button color="secondary" onClick={handleDelete}>
+                    Confirm Elimination
+                </Button>
+            </DialogActions>
+    </Dialog>
+
             <Grid container>
                 <Grid item lg={6} sm={6} xs={12}>
                     <Typography variant="h4" className={classes.text_title}>Categories</Typography>
@@ -92,16 +133,16 @@ const CategoriesList = (props) => {
                                 <TableCell>{item.id}</TableCell>
                                 <TableCell>{item.name}</TableCell>
                                 <TableCell>
-                                    <Button
+                                    <Button className={classes.iconTableBox}
                                     variant="contained"
                                     color="primary"
                                     onClick={ () => editItem(item.id)}>
                                             <Icon>edit</Icon>
                                     </Button>
-                                    <Button
+                                    <Button className={classes.iconTableBox}
                                     variant="contained"
                                     color="secondary"
-                                    onClick={ () => deleteItem(item.id)}>
+                                    onClick={ () => handleClickOpen(item.id)}>
                                           <Icon>delete</Icon>  
                                     </Button>
                                 </TableCell>
