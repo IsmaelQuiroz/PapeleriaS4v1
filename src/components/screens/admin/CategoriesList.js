@@ -3,9 +3,11 @@ import { Pagination } from '@material-ui/lab';
 import React, { useState, useEffect } from 'react';
 import { deleteCategory, getCategories } from '../../../actions/CategoryActions';
 import useStyles from '../../../theme/useStyle';
+import { useStatateValueMy } from '../../../contexto/mystore';
 
 
 const CategoriesList = (props) => {
+    const [{openSnackBarFormMain}, dispatch] = useStatateValueMy();
     const [open, setOpen] = useState(false);
     const [idToDelete, setIdToDelete] = useState(0);
     //Respuesta del server
@@ -66,12 +68,31 @@ const CategoriesList = (props) => {
 
     //update list of categories
     useEffect( () => {
-       const getCategoriesList = async  () => {
-            const response = await getCategories();
-            setCategoriesList(response.data);
-       };
+             
+    const getCategoriesList = async  () => {
+        try{
+                const response = await getCategories();
+                if(response == null){
+                    dispatch({
+                        type: "OPEN_SNACKBAR",
+                        openMensaje: {
+                            open: true,
+                            mensaje:" No fue posible procesar la solicitud",
+                            error: true
+                        }
+                    })
+                }
+                else{
+                    setCategoriesList(response.data);
+                }                
+        }
+       catch(error){
+         console.log("el error: ",error);
+        }
+    };
        
-       getCategoriesList();
+    getCategoriesList();
+     
        
     },[categoriesList.length]);
     

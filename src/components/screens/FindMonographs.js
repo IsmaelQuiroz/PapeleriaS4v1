@@ -4,10 +4,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { deleteMonographAction, getMonographsListAction } from '../../actions/MonographActions';
 import useStyles from '../../theme/useStyle';
 import { Clear as ClearIcon}  from '@material-ui/icons';
+import { useStatateValueMy} from '../../contexto/mystore'
 //import { Search as SearchIcon}  from '@material-ui/icons';
 
 
 const FindMonographs = (props) => {
+        const [{openSnackBarFormMain}, dispatch] = useStatateValueMy(); 
         const [open, setOpen] = useState(false);
         const textFieldRef = useRef(null);
         const [idToDelete, setIdToDelete] = useState(0);
@@ -94,13 +96,28 @@ const FindMonographs = (props) => {
     useEffect( () => {              
         //fnPaginationResponse();
         //setCriterioAndBusqueda();
-        const efnPaginationResponse = async () => {
-            const response = await getMonographsListAction(requestPagination);
-            console.log("monografias", response.data);
-            setPaginationList(response.data);
-        };
+        try {
+            const efnPaginationResponse = async () => {
+                    const response = await getMonographsListAction(requestPagination);
+                    //console.log("monografias", response.data);
+                    if(response == null){
+                        dispatch({
+                            type:"OPEN_SNACKBAR",
+                            openMensaje:{
+                                open: true,
+                                mensaje:"No fue posible procesar la solicitud",
+                                error:true
+                            }
+                        }) 
+                    }else{
+                        setPaginationList(response.data);
+                    }
+                };
 
-        efnPaginationResponse();
+                efnPaginationResponse();
+        } catch (error) {
+            console.log("error: ", error);
+        }      
 
     },[requestPagination]);
     
