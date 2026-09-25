@@ -48,6 +48,9 @@ jobs:
       # 3. Compilamos el proyecto para generar la carpeta 'build'
       - name: Build Project
         run: npm run build
+        env:
+          SKIP_PREFLIGHT_CHECK: true
+
            
       # 4. Le entregamos a Azure el proyecto ya compilado listo para publicar
       - name: Build And Deploy
