@@ -65,6 +65,8 @@ jobs:
           output_location: "" # Azure tomará directamente lo que esté en esta carpeta
           github_id_token: ${{ steps.idtoken.outputs.result }}
           skip_app_build: true # ¡ESTO EVITA QUE AZURE INTENTE INSTALAR OTRA VEZ!
+        env:
+          REACT_APP_URL_BASE: ${{ secrets.REACT_APP_URL_BASE }}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
