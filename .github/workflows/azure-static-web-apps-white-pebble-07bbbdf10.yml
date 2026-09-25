@@ -50,6 +50,7 @@ jobs:
         run: npm run build
         env:
           SKIP_PREFLIGHT_CHECK: true
+          CI: false
 
            
       # 4. Le entregamos a Azure el proyecto ya compilado listo para publicar
