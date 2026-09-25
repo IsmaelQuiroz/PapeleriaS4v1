@@ -47,6 +47,9 @@ jobs:
           ###### End of Repository/Build Configurations ######
           # ¡AGREGA ESTA LÍNEA A CONTINUACIÓN!
           app_build_command: 'npm install --legacy-peer-deps && npm run build'
+           # ¡AGREGA ESTE BLOQUE ENV AL MISMO NIVEL DE WITH!
+        env: 
+            DISABLE_ORYX_BUILD: true
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
