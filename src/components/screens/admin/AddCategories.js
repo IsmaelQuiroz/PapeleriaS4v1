@@ -32,15 +32,24 @@ const AddCategories = (props) => {
         }
 
         const response = await registerCategory(category);
-        if(response.status === 200){
-            console.log("item registrado", response.data);
+        //console.log("responseCompleto", response.data);
+        if(response.status === 200){           
+            //console.log("item registrado", response.data);
+            dispatch({
+                type:"OPEN_SNACKBAR",
+                openMensaje:{
+                    open:true,
+                    mensaje: "Categoría registrada con éxito!",
+                    error: false
+                }
+            })
             props.history.push('/admin/categories');
         }else{
             dispatch({
                 type:"OPEN_SNACKBAR",
                 openMensaje: {
                     open: true,
-                    mensaje: response?.data?.title,
+                    mensaje: ` ${response?.data?.statusCode} - ${response?.data?.message}`,
                     error: true
                 } 
             });

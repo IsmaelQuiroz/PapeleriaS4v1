@@ -52,9 +52,31 @@ const CategoriesList = (props) => {
 
     const deleteItem = async (id) => {
         const response = await deleteCategory(id);
-        if(response.data){
+        //if(response.data){
+        if(response.status === 200){
+            
+            dispatch({
+                type:"OPEN_SNACKBAR",
+                openMensaje:{
+                    open:true,
+                    mensaje: "Categoría eliminada con éxito!",
+                    error: false
+                }
+            })
+
             const categoriesListRefresh = await getCategories();
             setCategoriesList(categoriesListRefresh.data);
+        }else{
+
+            dispatch({
+                type:"OPEN_SNACKBAR",
+                openMensaje: {
+                    open:true,
+                    mensaje: `${response?.data?.statusCode} - ${response?.data?.message}`,
+                    error:true
+                }
+            })
+            
         }
     }
 
