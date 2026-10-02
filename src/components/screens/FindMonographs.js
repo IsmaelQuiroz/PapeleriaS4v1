@@ -44,7 +44,7 @@ const FindMonographs = (props) => {
 
         const [requestPagination, setRequestPagination] = useState({
             pageIndex : 1,
-            pageSize: 3,
+            pageSize: 4,
             search: '',
             keyword:''
         });
@@ -69,10 +69,33 @@ const FindMonographs = (props) => {
 
     const deleteItem = async (id) => {
         const response = await deleteMonographAction(id);
-        if(response.data){
+        if(response.status === 200){
+
+            dispatch({
+                type:"OPEN_SNACKBAR",
+                openMensaje: {
+                    open: true,
+                    mensaje: "Planilla eliminada con éxito!",
+                    error: false
+                }
+            })
+
             const fnPaginationResponseRefresh = await getMonographsListAction(requestPagination);
             setPaginationList(fnPaginationResponseRefresh.data);
+
+        }else{
+            dispatch({
+                type:"OPEN_SNACKBAR",
+                openMensaje: {
+                    open: true,
+                    mensaje:`${response?.data?.statusCode} - ${response?.data?.menssaje}`,
+                    error: false
+                }
+            })
         }
+        // if(response.data){
+           
+        // }
     }
 
     const handleSubmit = (event) => {       
