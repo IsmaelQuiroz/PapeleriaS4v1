@@ -18,6 +18,10 @@ const AddCategories = (props) => {
         })
     }
 
+    const cancelAction = () => {
+        props.history.push("/admin/categories");
+    }
+
     const saveItem = async () => {
         if(category.name.length == 0){
             dispatch({
@@ -81,8 +85,12 @@ const AddCategories = (props) => {
                             onChange={handleChange}
                         />
 
-                        <Button variant="contained" color="primary" onClick={saveItem}>
+                        <Button variant="contained" color="primary" onClick={saveItem} className={cls.buttonAnterior}>
                             ADD
+                        </Button>
+
+                        <Button variant="contained" color="secundary" onClick={cancelAction}>
+                            CANCEL
                         </Button>
                     </form>                                      
                 </Grid>

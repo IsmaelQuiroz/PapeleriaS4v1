@@ -102,7 +102,7 @@ const EditCategory = (props) => {
                     UPDATE
                     </Button>
                     <Button variant="contained"
-                    color="secondary"
+                    color="secundary"
                     onClick={cancelAction}>
                         CANCEL
                     </Button>
