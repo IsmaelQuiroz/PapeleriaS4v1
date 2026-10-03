@@ -125,7 +125,38 @@ const AddMonograph = (props) => {
                    } 
                    />
 
-                   <FormControl className={cls.formControl}>
+                   { dataLoading ? ( 
+                       <TextField 
+                            variant='outlined' 
+                            fullWidth 
+                            label="Loading Category..."
+                            className={cls.gridmb} 
+                            disabled
+                            InputProps= {{
+                                            endAdornment: <CircularProgress color='inherit' size={20}/>,
+                                        }} 
+                       />
+                    ) : (   
+                        <FormControl className={cls.gridmb} variant="outlined" fullWidth>
+                            <InputLabel id="category-select-label" fullWidth>Select Category</InputLabel>        
+                            <Select  
+                                labelId='category-select-label' 
+                                id="category-select"
+                                value={categoryIdSelected} 
+                                onChange={handleCategoryIdChange}
+                                label="Select Category" 
+                            >
+                                {categoryData.map( (itemCategory) => (
+                                    <MenuItem key={itemCategory.id} value={itemCategory.id}>
+                                        {itemCategory.name}
+                                    </MenuItem>
+                                ) )}
+                            </Select>
+                        </FormControl>
+                    )
+                   }
+
+                   {/* <FormControl className={cls.formControl}>
                     <InputLabel id="category-select-label">Select Category</InputLabel>
                     <Select 
                         labelId="category-select-label"
@@ -146,7 +177,7 @@ const AddMonograph = (props) => {
                                     ))
                         )}
                     </Select>
-                   </FormControl>
+                   </FormControl> */}
 
                     <TextField
                     label="Keyword"

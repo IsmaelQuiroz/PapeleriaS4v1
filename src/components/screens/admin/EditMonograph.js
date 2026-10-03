@@ -144,7 +144,41 @@ const EditMonograph = (props) => {
                     }}
                     />
 
-                    <FormControl className={cls.formControl}>
+                {/* //Nuevo control */}
+                                    
+                     { dataLoading ? (
+                           <TextField 
+                                variant="outlined"
+                                fullWidth
+                                label="Loading Category..."
+                                className={cls.gridmb}
+                                disabled
+                                InputProps={{
+                                    endAdornment: <CircularProgress color='inherit' size={20} />  
+                                }}
+                           /> 
+                     ): (
+                            <FormControl className={cls.gridmb} variant="outlined" fullWidth>
+                                <InputLabel id="category-select-label">Select Category</InputLabel>
+                                <Select
+                                    labelId="category-select-label"
+                                    id="category-select"
+                                    value={categoryIdSelected}
+                                    onChange={handleCategoryIdChange}
+                                    label="Select Category"
+                                >
+                                    {categoryData.map((itemCategory) => (
+                                        <MenuItem key={itemCategory.id} value={itemCategory.id}>
+                                            {itemCategory.name}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                     )}
+
+                {/* //Nuevo control */}
+
+                    {/* <FormControl className={cls.formControl}>
                         <InputLabel id="category-select-label">Select Category</InputLabel>
                         <Select
                             labelId="category-select-label"
@@ -165,7 +199,7 @@ const EditMonograph = (props) => {
                                 ))
                             )}
                         </Select>
-                    </FormControl> 
+                    </FormControl>  */}
 
                     <TextField 
                     label="Stock"
