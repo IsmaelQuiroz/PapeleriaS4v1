@@ -17,7 +17,7 @@ function App() {
   const [{ openSnackBarFromMain }, dispatch] = useStatateValueMy();
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} injectFirst>
       <Snackbar
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         open={openSnackBarFromMain ? openSnackBarFromMain.open : false}

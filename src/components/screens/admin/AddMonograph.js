@@ -211,7 +211,7 @@ const AddMonograph = (props) => {
                     name="productName"
                     value={monograph.productName}
                     fullWidth
-                    onChange={handleChange}
+                    //onChange={handleChange}
                     disabled
                     variant="filled"
                     className={cls.gridmb}
