@@ -44,7 +44,7 @@ const FindMonographs = (props) => {
 
         const [requestPagination, setRequestPagination] = useState({
             pageIndex : 1,
-            pageSize: 4,
+            pageSize: 5,
             search: '',
             keyword:''
         });
@@ -241,7 +241,7 @@ const FindMonographs = (props) => {
                             <TableCell>Title Name</TableCell>
                             <TableCell>Category</TableCell>
                             <TableCell>Keyword</TableCell>
-                            <TableCell>Id</TableCell>
+                            <TableCell>stock</TableCell>
                             <TableCell>Actions</TableCell>
                         </TableRow>
                     </TableHead>
@@ -252,7 +252,7 @@ const FindMonographs = (props) => {
                                 <TableCell>{item.title}</TableCell>
                                 <TableCell>{item.categoryName}</TableCell>
                                 <TableCell>{item.keyword}</TableCell>
-                                <TableCell>{item.id}</TableCell>
+                                <TableCell>{item.stock}</TableCell>
                                 <TableCell class={classes.iconTableCell} >
                                     <Button className={classes.iconTableBox}
                                     variant="contained"
