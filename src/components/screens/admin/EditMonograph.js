@@ -153,19 +153,21 @@ const EditMonograph = (props) => {
                                 label="Loading Category..."
                                 className={cls.gridmb}
                                 disabled
+                                margin="normal"
                                 InputProps={{
                                     endAdornment: <CircularProgress color='inherit' size={20} />  
                                 }}
                            /> 
                      ): (
                             <FormControl className={cls.gridmb} variant="outlined" fullWidth>
-                                <InputLabel id="category-select-label">Select Category</InputLabel>
+                                <InputLabel id="category-select-label" className={cls.gridmb}>Select Category</InputLabel>
                                 <Select
                                     labelId="category-select-label"
                                     id="category-select"
                                     value={categoryIdSelected}
                                     onChange={handleCategoryIdChange}
                                     label="Select Category"
+                                
                                 >
                                     {categoryData.map((itemCategory) => (
                                         <MenuItem key={itemCategory.id} value={itemCategory.id}>
@@ -218,15 +220,18 @@ const EditMonograph = (props) => {
                     label="Producto Asociado"
                     name="productName"
                     value={item.productName}
-                    fullWidth
+                    fullWidth                    
                     disabled
                     variant="filled"
-                    />
+                    className={cls.gridmb}
+                    />                   
 
-                <Button variant="contained" color="primary" onClick={updateItem} spacing className={cls.buttonAnterior}>
+
+                <Button variant="contained" color="primary" onClick={updateItem} spacing className={cls.buttonAnterior}
+                >
                     SAVE
                 </Button>
-                <Button variant="contained" color="secundary" onClick={cancelAction}>
+                <Button variant="contained" color="secundary" onClick={cancelAction} >
                     CANCEL
                 </Button>
                     
