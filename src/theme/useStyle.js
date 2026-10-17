@@ -27,7 +27,9 @@ const useStyles = makeStyles({
         marginBottom: 10
     },
     gridmb : {
-        marginBottom: 20
+        '&&': {
+            marginBottom: 20
+        }
     },
     link: {
         marginTop: 8,
@@ -160,8 +162,11 @@ const useStyles = makeStyles({
     },
     formControl: {
         /*margin: 12*/
-        margin: theme.spacing(1),
-        minWidth: 120
+        // margin: theme.spacing(1),
+        minWidth: 120,
+        '&&' :{
+             margin: theme.spacing(1)
+        }
     },
     gridLR :{
         paddingLeft: 30,
