@@ -46,13 +46,23 @@ const EditCategory = (props) => {
 
         const response = await updateCategories(category, category.id);
         if(response.status === 200){
+
+            dispatch({
+                type: "OPEN_SNACKBAR",
+                openMensaje: {
+                    open: true,
+                    mensaje: "Categoría actualizada con éxito!",
+                    error: false
+                }
+            })
+
             props.history.push("/admin/categories/");
         }else{
             dispatch({
                type:"OPEN_SNACKBAR",
                openMensaje : {
                  open:true,
-                 mensaje: response?.data?.title,
+                 mensaje: `${response?.data?.statusCode} - ${response?.data?.message}`,
                  error: true 
                }     
             });

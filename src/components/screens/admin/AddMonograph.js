@@ -71,6 +71,16 @@ const AddMonograph = (props) => {
         const response = await registerMonographAction(monograph);
         console.log('respuesta de AddMonograph',response);
         if(response.status===200){
+
+            dispatch({
+                type: "OPEN_SNACKBAR",
+                openMensaje : {
+                    open: true,
+                    mensaje: "Monografía Agregada con éxito!",
+                    error: false
+                }
+            })
+
             props.history.push("/findMonographs");
         }
         else{
@@ -78,7 +88,8 @@ const AddMonograph = (props) => {
                 type: "OPEN_SNACKBAR",
                 openMensaje: {
                     open: true,
-                    mensaje: response?.data?.title,
+                    // mensaje: `${response?.data?.statusCode} - ${response?.data?.message}`,
+                     mensaje: ` ${response?.request?.status} - ${response?.request?.statusText}`,
                     error: true
                 }
             });

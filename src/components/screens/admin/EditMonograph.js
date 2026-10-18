@@ -79,14 +79,26 @@ const EditMonograph = (props) => {
 
         const response = await updateMonographAction(item,item.id);
         if(response.status === 200){
+            
+            dispatch({
+                type: "OPEN_SNACKBAR",
+                openMensaje: {
+                    open:true,
+                    mensaje:"Monografía Actualizada con éxito!",
+                    error: false
+                }
+            });
+
             props.history.push("/findMonographs");
+
         }else{
             //console.log(response.data.errors.model[0]);
             dispatch({
                 type: "OPEN_SNACKBAR",
                 openMensaje: {
                     open: true,
-                    mensaje: response?.data?.errors?.monograph?.[0] || response?.data?.title,
+                    // mensaje: response?.data?.errors?.monograph?.[0] || response?.data?.title,
+                    mensaje: `${response?.data?.statusCode} - ${response?.data?.message}`,
                     error: true
                 }
             });

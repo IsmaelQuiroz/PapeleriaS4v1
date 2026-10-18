@@ -253,7 +253,7 @@ const FindMonographs = (props) => {
                                 <TableCell>{item.categoryName}</TableCell>
                                 <TableCell>{item.keyword}</TableCell>
                                 <TableCell>{item.stock}</TableCell>
-                                <TableCell class={classes.iconTableCell} >
+                                <TableCell className={classes.iconTableCell} >
                                     <Button className={classes.iconTableBox}
                                     variant="contained"
                                     color="primary"
