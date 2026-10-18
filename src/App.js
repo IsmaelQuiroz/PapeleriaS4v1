@@ -1,5 +1,5 @@
 import React from "react";
-import { Snackbar, SnackbarContent, ThemeProvider } from "@material-ui/core";
+import { Snackbar, SnackbarContent, ThemeProvider, StylesProvider } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import MenuAppBar from "./components/navegacion/MenuAppBar";
 import theme from "./theme/theme";
@@ -17,7 +17,8 @@ function App() {
   const [{ openSnackBarFromMain }, dispatch] = useStatateValueMy();
 
   return (
-    <ThemeProvider theme={theme} injectFirst>
+    <StylesProvider injectFirst>
+    <ThemeProvider theme={theme} >
       <Snackbar
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         open={openSnackBarFromMain ? openSnackBarFromMain.open : false}
@@ -58,6 +59,7 @@ function App() {
         </Switch>
       </Router>
     </ThemeProvider>
+    </StylesProvider>
   );
 }
 

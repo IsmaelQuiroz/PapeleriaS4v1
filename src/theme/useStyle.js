@@ -252,8 +252,8 @@ const useStyles = makeStyles({
         flexDirection  : "row",
         flexWrap:"nowrap",
         justifyContent: "center" //centrado horizontal
-        //,alignContent: "space-around"
-        ,margin: theme.spacing(1) //espaciado vertical
+        ////,alignContent: "space-around"
+        // ,margin: theme.spacing(1) //espaciado vertical
     },
     iconTableBox: {
         marginLeft: "2px",
