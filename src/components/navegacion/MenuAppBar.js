@@ -5,6 +5,7 @@ import useStyles from '../../theme/useStyle';
 import MenuCliente from './desktop/MenuCliente';
 import MenuAdmin from './desktop/MenuAdmin';
 import MenuMovil from './movil/MenuMovil';
+import Autorizado from '../../features/seguridad/componentes/Autorizado';
 
 const MenuAppBar = () => {
     const classes = useStyles();
@@ -42,9 +43,19 @@ const MenuAppBar = () => {
                                 <Typography variant="h5">PapeleríaS4 SHOP</Typography>
                            </Link> 
                         </div>
-                        <div className={classes.sectionDesktop}>
-                            <MenuCliente/>
-                            <MenuAdmin/>
+                        <div className={classes.sectionDesktop}>                        
+                            
+
+                            <Autorizado
+                                claimsPermitidos={['esadmin']}
+                                contentAutorizado={
+                                    <>
+                                        <MenuCliente/>
+                                        <MenuAdmin/>
+                                    </> 
+                                }                            
+                            />
+                            
                         </div>
                     </Toolbar>
                 </Container>
